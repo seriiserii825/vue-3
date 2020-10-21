@@ -14,8 +14,14 @@
 </template>
 
 <script>
+import BaseCard from "@/components/UI/BaseCard";
+import BaseButton from "@/components/UI/BaseButton";
 export default {
-    props: ['title', 'description', 'link']
+    props: ['title', 'description', 'link'],
+    components: {
+        BaseCard,
+        BaseButton
+    }
 }
 </script>
 
