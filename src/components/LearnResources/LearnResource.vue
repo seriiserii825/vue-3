@@ -3,7 +3,7 @@
         <base-card>
             <header>
                 <h2>{{ title }}</h2>
-                <base-button>Delete</base-button>
+                <base-button @click="deleteResource(id)">Delete</base-button>
             </header>
             <p>{{ description }}</p>
             <nav>
@@ -16,8 +16,10 @@
 <script>
 import BaseCard from "@/components/UI/BaseCard";
 import BaseButton from "@/components/UI/BaseButton";
+
 export default {
-    props: ['title', 'description', 'link'],
+    inject: ['deleteResource'],
+    props: ['id', 'title', 'description', 'link'],
     components: {
         BaseCard,
         BaseButton
@@ -27,27 +29,32 @@ export default {
 
 <style scoped lang="scss">
 li {
-  margin: auto;
-  max-width: 40rem;
+    margin: auto;
+    max-width: 40rem;
 }
+
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 h3 {
-  font-size: 1.25rem;
-  margin: 0.5rem 0;
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
 }
+
 p {
-  margin: 0.5rem 0;
+    margin: 0.5rem 0;
 }
+
 a {
-  text-decoration: none;
-  color: #ce5c00;
+    text-decoration: none;
+    color: #ce5c00;
 }
+
 a:hover,
 a:active {
-  color: #c89300;
+    color: #c89300;
 }
 </style>

@@ -39,7 +39,8 @@ export default {
     provide() {
         return {
             resources: this.storedResources,
-            addResource: this.addResource
+            addResource: this.addResource,
+            deleteResource: this.deleteResource
         }
     },
     methods: {
@@ -50,6 +51,10 @@ export default {
             const item = {id: Date.now, title, description, link}
             this.storedResources.unshift(item)
             this.resourcesName = 'stored-resources'
+        },
+        deleteResource(ids){
+            const index = this.storedResources.findIndex(item => item.id === ids )
+            this.storedResources.splice(index, 1)
         }
     },
     components: {
