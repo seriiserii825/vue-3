@@ -1,4 +1,12 @@
 <template>
+    <base-modal title="Error in inputs" v-if="inputIsInvalid" @close="inputIsInvalid = false">
+        <template #default>
+            <p>Enter in each input some values</p>
+        </template>
+        <template #actions>
+            <base-button @click="confirmError">Ok</base-button>
+        </template>
+    </base-modal>
     <base-card>
         <form @submit.prevent="addData">
             <div class="form-control">
@@ -20,14 +28,18 @@
 
 <script>
 import BaseCard from "@/components/UI/BaseCard";
+import BaseModal from "@/components/UI/BaseModal";
+import BaseButton from "@/components/UI/BaseButton";
 
 export default {
     inject: ['addResource'],
+    emits: ['close'],
     data() {
         return {
             inputTitle: '',
             inputDesc: '',
-            inputLink: ''
+            inputLink: '',
+            inputIsInvalid: false
         }
     },
     methods: {
@@ -35,14 +47,24 @@ export default {
             const inputTitle = this.inputTitle
             const inputDesc = this.inputDesc
             const inputLink = this.inputLink
-            this.addResource(inputTitle, inputDesc, inputLink);
-            this.inputTitle = ''
-            this.inputDesc = ''
-            this.inputLink = ''
+            if (inputTitle === '' || inputDesc === '' || inputLink === '') {
+                this.inputIsInvalid = true
+                return false;
+            } else {
+                this.addResource(inputTitle, inputDesc, inputLink);
+                this.inputTitle = ''
+                this.inputDesc = ''
+                this.inputLink = ''
+            }
+        },
+        confirmError() {
+            this.inputIsInvalid = false
         }
     },
     components: {
-        BaseCard
+        BaseCard,
+        BaseModal,
+        BaseButton
     }
 }
 </script>
